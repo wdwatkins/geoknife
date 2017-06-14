@@ -11,6 +11,7 @@
 #'
 #' @param .Object a \linkS4class{geojob} object or geojob ID (character)
 #' @param retry logical, attempt to retry again if communication failed with the server
+#' @param returnPercent logical Also return job percent complete? 
 #' @return TRUE/FALSE indicating if process is in the given state (error, processing, successful)
 #' @description Simple wrapper to check process status
 #'
@@ -35,8 +36,9 @@ successful <- function(.Object, retry = FALSE){
 #' @rdname successful-methods
 #' @aliases running
 #' @export
-running <- function(.Object, retry = FALSE){
-  status_is(id(.Object), status = 'running', retry = retry)
+running <- function(.Object, retry = FALSE, returnPercent = FALSE){
+  status_is(id(.Object), status = 'running', retry = retry, 
+            returnPercent = returnPercent)
 }
 
 #' @rdname successful-methods
@@ -46,16 +48,20 @@ error <- function(.Object, retry = FALSE){
   status_is(id(.Object), status = 'error', retry = retry)
 }
 
-status_is <- function(jobID, status, retry){
-  
+status_is <- function(jobID, status, retry, returnPercent = FALSE){
   process = check(jobID)
   if (process$status == 'unknown' && retry){
     Sys.sleep(gconfig('sleep.time'))
     process = check(jobID)
   }
   state <- process$statusType
-  switch(status, 
-         error = state == "ProcessFailed",
-         running = state == "ProcessStarted" | state == "ProcessAccepted",
-         successful = state == "ProcessSucceeded")
+  #if option, return list with percent?
+  statusReturn <- switch(status, 
+                     error = state == "ProcessFailed",
+                     running = state == "ProcessStarted" | state == "ProcessAccepted",
+                     successful = state == "ProcessSucceeded")
+  if(returnPercent) {
+    statusReturn <- c(statusIs = statusReturn, percentComplete = process$percentComplete)
+  }
+  return(statusReturn)
 }

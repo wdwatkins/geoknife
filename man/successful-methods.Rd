@@ -12,7 +12,7 @@ successful(.Object, retry)
 error(.Object, retry)
 running(.Object, retry)
 
-running(.Object, retry = FALSE)
+running(.Object, retry = FALSE, returnPercent = FALSE)
 
 error(.Object, retry = FALSE)
 }
@@ -20,6 +20,8 @@ error(.Object, retry = FALSE)
 \item{.Object}{a \linkS4class{geojob} object or geojob ID (character)}
 
 \item{retry}{logical, attempt to retry again if communication failed with the server}
+
+\item{returnPercent}{logical Also return job percent complete?}
 }
 \value{
 TRUE/FALSE indicating if process is in the given state (error, processing, successful)

@@ -38,6 +38,7 @@ setMethod(f = "result",signature="geojob",
 #' @aliases result
 setMethod(f = "result",signature="character",
           definition = function(.Object, ...){
+            browser()
             if (successful(.Object)){
               output <- outputParse(jobID = .Object, ...)
               return(output)
