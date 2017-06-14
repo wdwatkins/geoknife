@@ -35,6 +35,7 @@ successful <- function(.Object, retry = FALSE){
 
 #' @rdname successful-methods
 #' @aliases running
+#' @param returnPercent logical Should percent complete also be returned?
 #' @export
 running <- function(.Object, retry = FALSE, returnPercent = FALSE){
   status_is(id(.Object), status = 'running', retry = retry, 

@@ -22,6 +22,8 @@ error(.Object, retry = FALSE)
 \item{retry}{logical, attempt to retry again if communication failed with the server}
 
 \item{returnPercent}{logical Also return job percent complete?}
+
+\item{returnPercent}{logical Should percent complete also be returned?}
 }
 \value{
 TRUE/FALSE indicating if process is in the given state (error, processing, successful)
