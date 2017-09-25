@@ -1,7 +1,7 @@
 Package: geoknife
 Type: Package
 Title: Web-Processing of Large Gridded Datasets
-Version: 1.5.5
+Version: 1.6.0
 Date: 2017-06-6
 Authors@R: c( person("Jordan", "Read", role = c("aut","cre"),
     email = "jread@usgs.gov"),
@@ -33,7 +33,7 @@ Copyright: This software is in the public domain because it contains materials
 Depends:
     R (>= 3.0)
 Imports:
-    XML,
+    whisker,
     xml2,
     methods,
     httr (>= 1.0.0),
